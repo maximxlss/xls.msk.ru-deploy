@@ -1,0 +1,13 @@
+# dashboard with auth
+http:
+  routers:
+    traefik:
+      rule: "Host(`traefik.xls.msk.ru`)"
+      service: api@internal
+      middlewares: traefik-auth
+      tls: true
+  middlewares:
+    traefik-auth:
+      basicauth:
+        removeheader: true
+        usersfile: /etc/traefik/authusers.txt

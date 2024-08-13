@@ -1,0 +1,18 @@
+name: status
+services:
+  status:
+    container_name: status
+    restart: always
+    image: localhost:5000/statusgo
+    mem_limit: 128M
+    cpus: 0.5
+    pull_policy: always
+    networks:
+      - traefik-servicenet
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.status.rule=Host(`status.xls.msk.ru`)||Host(`maximxls.archlinux.gay`)
+      - traefik.http.routers.status.tls=true
+networks:
+  traefik-servicenet:
+    external: true

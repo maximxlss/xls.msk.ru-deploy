@@ -1,0 +1,13 @@
+tls:
+  certificates:
+    - certFile: /etc/traefik/cert/cert.crt
+      keyFile: /etc/traefik/cert/cert.key
+    - certFile: /etc/traefik/cert/gay.crt
+      keyFile: /etc/traefik/cert/gay.key
+  options:
+    default:
+      sniStrict: true
+      clientAuth:
+        caFiles:
+          - /etc/traefik/cert/client.crt
+        clientAuthType: RequireAndVerifyClientCert

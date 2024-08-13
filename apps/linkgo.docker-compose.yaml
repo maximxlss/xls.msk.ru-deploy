@@ -1,0 +1,29 @@
+name: linkgo
+services:
+  linkgo:
+    container_name: linkgo
+    restart: always
+    image: localhost:5000/linkgo
+    mem_limit: 128M
+    cpus: 0.5
+    pull_policy: always
+    networks:
+      - traefik-servicenet
+      - default
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.link.rule=Host(`link.xls.msk.ru`)
+      - traefik.http.routers.link.tls=true
+  redis:
+    container_name: linkgo-redis
+    restart: always
+    image: redis:7.2
+    mem_limit: 128M
+    cpus: 0.5
+    command:
+      - "--save 60 1"
+    volumes:
+      - ./linkgo/redis_data:/data
+networks:
+  traefik-servicenet:
+    external: true
